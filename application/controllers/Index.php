@@ -5,7 +5,7 @@
  * @desc 默认控制器
  * @see http://www.php.net/manual/en/class.yaf-controller-abstract.php
  */
-class IndexController extends Yaf_Controller_Abstract {
+class IndexController extends Yaf\Controller_Abstract {
     /**
      * 默认初始化方法，如果不需要，可以删除掉这个方法
      * 如果这个方法被定义，那么在Controller被构造以后，Yaf会调用这个方法
@@ -20,6 +20,18 @@ class IndexController extends Yaf_Controller_Abstract {
      * 对于如下的例子, 当访问http://yourhost/yaf_skeleton/index/index/index/name/danche 的时候, 你就会发现不同
      */
 	public function indexAction($name = "Stranger") {
+
+	    // get the global config
+	    //echo \Host::getHost();
+
+        // get the file
+        //\yaf\Loader::import('/home/danche/www/Tool/Http.php');
+
+        $iniConfig = \yaf\application::app()->getConfig();
+        echo "<pre>";
+        var_export($iniConfig);
+        echo "<pre>";
+
 		//1. fetch query
 		$get = $this->getRequest()->getQuery("get", "default value");
 
