@@ -19,21 +19,32 @@ class IndexController extends Yaf\Controller_Abstract {
      * Yaf支持直接把Yaf_Request_Abstract::getParam()得到的同名参数作为Action的形参
      * 对于如下的例子, 当访问http://yourhost/yaf_skeleton/index/index/index/name/danche 的时候, 你就会发现不同
      */
-	public function indexAction($name = "Stranger") {
+	public function indexAction($name = "Stranger indexModule") {
 
-	    // get the global config
-	    //echo \Host::getHost();
+	    // 全局库的加载
+//	    echo \Host::getHost();
+	    // 全局库的加载不支持命名空间，子目录等
+	    //echo \Test\Test::getTest();
+
+        //项目库的加载
+//        echo Tool\Http::getHost();
+//        echo Test\Http::getHost();
 
         // get the file
-        //\yaf\Loader::import('/home/danche/www/Tool/Http.php');
+//        \yaf\Loader::import('/home/danche/www/Tool/Http.php');
 
-        $iniConfig = \yaf\application::app()->getConfig();
+        /*$iniConfig = \yaf\application::app()->getConfig();
         echo "<pre>";
         var_export($iniConfig);
-        echo "<pre>";
+        echo "<pre>";*/
 
 		//1. fetch query
 		$get = $this->getRequest()->getQuery("get", "default value");
+		/*echo "<pre>";
+		var_dump($_REQUEST);
+		var_dump($_SERVER);
+		var_dump($_GET);
+		echo "</pre>";*/
 
 		//2. fetch model
 		$model = new SampleModel();
