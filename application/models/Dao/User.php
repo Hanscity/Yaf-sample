@@ -17,7 +17,7 @@ class UserModel
 
     public function getUserInfoByPhone($phone_number)
     {
-        $pdo = \Mysql\Pdo::getInstance()->getPdoInstance();
+        $pdo = \Mysql\Pdo::getInstance();
         $stmt = $pdo->prepare("SELECT id,user_name,phone_number,hash_password FROM users WHERE phone_number = ? 
                                               AND show_status = 1 limit 1");
         $stmt->execute([$phone_number]);
@@ -28,11 +28,10 @@ class UserModel
 
     public function addUser($user_name,$phone_number,$password)
     {
-
         $hash_password = password_hash($password,PASSWORD_DEFAULT);
         $cur_date = date('Y-m-d H:i:s');
 
-        $pdo = \Mysql\Pdo::getInstance()->getPdoInstance();
+        $pdo = \Mysql\Pdo::getInstance();
         $stmt = $pdo->prepare("INSERT INTO users 
                                     (user_name,phone_number,hash_password,created_at,updated_at,show_status) 
                                     VALUES (?,?,?,?,?,?)");

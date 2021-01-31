@@ -30,10 +30,4 @@ class UserController extends Yaf\Controller_Abstract
 
 
 
-
-
-
-
-
-
 }

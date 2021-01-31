@@ -159,7 +159,7 @@ class IndexController extends Yaf\Controller_Abstract {
     }
 
 
-    public function get_constAction()
+    public function get_ConstAction()
     {
         echo "<pre>";
         var_export(\Yaf\VERSION);
@@ -167,8 +167,6 @@ class IndexController extends Yaf\Controller_Abstract {
         var_export(\Yaf\ERR\STARTUP_FAILED);
         var_export(\Yaf\ERR\ROUTE_FAILED);
         echo "</pre>";
-
-
 
     }
 
