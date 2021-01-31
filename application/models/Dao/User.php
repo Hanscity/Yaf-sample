@@ -18,7 +18,8 @@ class UserModel
     public function getUserInfoByPhone($phone_number)
     {
         $pdo = \Mysql\Pdo::getInstance()->getPdoInstance();
-        $stmt = $pdo->prepare("SELECT id,user_name,phone_number FROM users WHERE phone_number = ? limit 1");
+        $stmt = $pdo->prepare("SELECT id,user_name,phone_number,hash_password FROM users WHERE phone_number = ? 
+                                              AND show_status = 1 limit 1");
         $stmt->execute([$phone_number]);
         $user = $stmt->fetch();
         return $user;

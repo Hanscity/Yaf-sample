@@ -22,11 +22,12 @@ class Bootstrap extends Yaf\Bootstrap_Abstract {
         ini_set('error_reporting',$errorReporting);
 
         //定义业务 code 常量
-        define('YAF_ERR_LOGIC_EXISTS', 530); ## Yaf 框架的业务中断，已存在之类的业务，例如该注册的号码已存在~
-        define('YAF_ERR_LOGIC_REQUIRE', 531); ## Yaf 框架 业务缺少参数
-
-        define('YAF_ERR_LOGIC_DB', 540); ## Yaf 框架 MySQL 异常错误等
-
+        define('YAF_HTTP_OK', 200); ## http 请求成功
+        define('YAF_LOGIC_EXISTS', 530); ## 已存在，例如该注册的号码已存在
+        define('YAF_LOGIC_NOT_EXISTS', 531); ## 不存在，例如用户的手机号码不存在
+        define('YAF_LOGIC_REQUIRE', 532); ## 缺少参数，例如用户的手机号码没有传递
+        define('YAF_LOGIC_DATA_ERROR', 532); ## 数据不正确，例如用户的密码不正确
+        define('YAF_LOGIC_DB_ERROR', 540); ## MySQL 异常错误
 
     }
 
