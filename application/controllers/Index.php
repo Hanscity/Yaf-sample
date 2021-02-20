@@ -39,15 +39,15 @@ class IndexController extends Yaf\Controller_Abstract {
         echo "<pre>";*/
 
 		//1. fetch query
-		$get = $this->getRequest()->getQuery("get", "default value");
+//		$get = $this->getRequest()->getQuery("get", "default value");
 
 		//2. fetch model
-		$model = new SampleModel();
-
-		$modelDao = new Dao\SampleModel();
-		$info = $modelDao->selectSample();
-
-		var_dump($info);
+//		$model = new SampleModel();
+//
+//		$modelDao = new Dao\SampleModel();
+//		$info = $modelDao->selectSample();
+//
+//		var_dump($info);
 
 		//3. assign
 //		$this->getView()->assign("content", $model->selectSample());

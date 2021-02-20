@@ -26,6 +26,12 @@ class UserController extends Yaf\Controller_Abstract
     }
 
 
+    public function testAction()
+    {
+        $data = ['Girl A','Girl B','Girl C'];
+        \Utils\Data::responceReturn(json_encode($data));
+//        var_export($data);
+    }
 
 
 
