@@ -33,7 +33,16 @@ class UserController extends Yaf\Controller_Abstract
 //        var_export($data);
     }
 
-
+    /*
+     * @commet: 为前端页面准备的
+     */
+    public function htmlAction()
+    {
+        echo "<pre>";
+        var_dump($_REQUEST);
+        echo "</pre>";
+        exit;
+    }
 
 
 }
