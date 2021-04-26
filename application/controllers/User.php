@@ -14,22 +14,18 @@ class UserController extends Yaf\Controller_Abstract
         $password = isset($params['password']) ? $params['password'] : '';
         $codeVerify = isset($params['codeVerify']) ? $params['codeVerify'] : '';
 
-        /*
-         * 验证码检测，暂时放开~
-         */
-        if ($codeVerify != 9999) {
-            \Utils\Data::echoJson(YAF_LOGIC_DATA_ERROR, '验证码不正确', '');
-            exit;
-        }
-//        $data = UserLogic::getInstance()->addUser($user_name,$phone_number,$password);
-//        \Utils\Data::jsonReturn();
+
+        $data = UserLogic::getInstance()->addUser($user_name, $phone_number, $password, $codeVerify);
+        \Utils\Data::responceReturn($data);
     }
 
 
     public function loginAction()
     {
-        $phone_number = $this->getRequest()->get('phone_number');
-        $password = $this->getRequest()->get('password');
+        $params = \Utils\Data::getHttpPostJson();
+
+        $phone_number = isset($params['phone']) ? $params['phone'] : '';
+        $password = isset($params['password']) ? $params['password'] : '';
 
         $data = UserLogic::getInstance()->judgeUser($phone_number,$password);
         \Utils\Data::responceReturn($data);

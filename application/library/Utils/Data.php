@@ -35,8 +35,8 @@ class Data
     }
 
 
-    public static function echoJson(int $code = 200, string $message = 'Success', $data = '')
-    {
-        echo json_encode(['code'=>$code,'message'=>$message,'data'=>$data]);
-    }
+//    public static function echoJson(int $code = 200, string $message = 'Success', $data = '')
+//    {
+//        echo json_encode(['code'=>$code,'message'=>$message,'data'=>$data]);
+//    }
 }

@@ -43,7 +43,7 @@ class UserModel
     }
 
 
-    public function addUser($user_name,$phone_number,$password)
+    public function addUser($user_name, $phone_number, $password, $codeVerify)
     {
         if (!$user_name) {
             return \Utils\Data::jsonReturn(YAF_LOGIC_REQUIRE,'缺少参数-用户名','');
@@ -56,6 +56,11 @@ class UserModel
         if (!$password) {
             return \Utils\Data::jsonReturn(YAF_LOGIC_REQUIRE,'缺少参数-密码','');
         }
+
+        // 验证码暂且放开
+//        if ($codeVerify != 9999) {
+//            return \Utils\Data::jsonReturn(YAF_LOGIC_DATA_ERROR, '验证码不正确', '');
+//        }
 
         try{
             $user = \Dao\UserModel::getInstance()->getUserInfoByPhone($phone_number);
@@ -96,12 +101,12 @@ class UserModel
         }
 
         if (!$user) {
-            return \Utils\Data::jsonReturn(YAF_LOGIC_NOT_EXISTS,'该用户不存在','');
+            return \Utils\Data::jsonReturn(YAF_LOGIC_NOT_EXISTS,'手机号或者密码不正确','');
         }
 
 
         if (! password_verify($password,$user['hash_password'])) {
-            return \Utils\Data::jsonReturn(YAF_LOGIC_DATA_ERROR,'密码不正确','');
+            return \Utils\Data::jsonReturn(YAF_LOGIC_DATA_ERROR,'手机号或者密码不正确','');
         }
 
         $token = $this->setToken($user);
