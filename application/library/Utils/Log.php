@@ -17,8 +17,8 @@ class Log
 
     public static function recordLog($content)
     {
-        $file = APPLICATION_PATH.'/storages/logs/log'.'_'.date('Y-m-d');
-        error_log($content,3,$file);
+        $file = APPLICATION_PATH.'/storages/logs/log'.'_'.date('Y-m-d').'.log';
+        error_log($content.PHP_EOL, 3, $file);
     }
 
 

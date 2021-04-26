@@ -25,4 +25,18 @@ class Data
     {
         echo $data;
     }
+
+    /*
+     * @comment: 当 header 是 "Content-Type:application/json" 的时候，参数转化
+     * */
+    public static function getHttpPostJson()
+    {
+        return json_decode(file_get_contents("php://input"), 1);
+    }
+
+
+    public static function echoJson(int $code = 200, string $message = 'Success', $data = '')
+    {
+        echo json_encode(['code'=>$code,'message'=>$message,'data'=>$data]);
+    }
 }
