@@ -17,6 +17,7 @@ class UserModel
 
     public function getToken()
     {
+        // md5 略微影响速度，但是不可逆
         $tokenKey = \Yaf\Registry::get('config')->application->token->key;
         $token = md5(microtime(1).$tokenKey.rand(1,100000000));
         return $token;
