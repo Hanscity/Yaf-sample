@@ -74,7 +74,7 @@ class UserModel
 
         } catch (\PDOException $e) {
 
-            $content = '[INFO_DB]'.__FILE__.','.__LINE__.'=>'.json_encode($e->getMessage()).PHP_EOL;
+            $content = '[INFO_DB]'.__FILE__.','.__LINE__.'=>'.$e->getMessage().PHP_EOL;
             \Utils\Log::recordLog($content);
             return \Utils\Data::jsonReturn(YAF_LOGIC_DB_ERROR,'数据库开小差了~','');
         }
@@ -96,7 +96,7 @@ class UserModel
         try {
             $user = \Dao\UserModel::getInstance()->getUserInfoByPhone($phone_number);
         } catch (\PDOException $e) {
-            $content = '[INFO_DB]'.__FILE__.','.__LINE__.'=>'.json_encode($e->getMessage()).PHP_EOL;
+            $content = '[INFO_DB]'.__FILE__.','.__LINE__.'=>'.$e->getMessage().PHP_EOL;
             \Utils\Log::recordLog($content);
             return \Utils\Data::jsonReturn(YAF_LOGIC_DB_ERROR,'数据库开小差了~','');
         }

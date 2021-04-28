@@ -3,6 +3,8 @@
 namespace Logic;
 
 use \Dao\MarketModel as MarketDao;
+use Logic\CommonModel as CommonLogic;
+
 
 class MarketModel
 {
@@ -17,9 +19,24 @@ class MarketModel
     }
 
     public static $agriProducts = [
-        1 => '稻米',
-        2 => '小麦',
-        3 => '玉米'
+        0 => '未选择',
+        1 => '稻谷',
+        2 => '大米',
+        3 => '稻米副产品',
+        101 => '小麦',
+        102 => '小麦副产品',
+        201 => '玉米',
+        202 => '玉米副产品',
+        301 => '大豆',
+        302 => '大豆副产品',
+        401 => '杂粮',
+        402 => '杂粮副产品'
+    ];
+
+    public static $buyCellTypeArr = [
+        0 => '未选择',
+        1 => '买',
+        2 => '卖',
     ];
 
     public static $brandLengthUtf8 = 64;
@@ -33,13 +50,18 @@ class MarketModel
     public function addMarket()
     {
         $params = \Utils\Data::getHttpPostJson();
-        \Utils\Log::recordLog(json_encode($params));
-        if (! (isset($params['agri_product']) && $params['brand'] && $params['trade_area']
-            && $params['specification'] && $params['unit_price'] && $params['num'] )) {
+        \Utils\Log::recordLog($params);
+
+        if (! (isset($params['agri_product']) && isset($params['brand']) && isset($params['trade_area'])
+            && isset($params['specification']) && isset($params['unit_price']) && isset($params['num']) && isset($params['buy_cell_type']) )) {
             return \Utils\Data::jsonReturn(YAF_LOGIC_REQUIRE,'缺少参数','');
         }
 
-        if (! array_key_exists($params['agri_product'], self::$agriProducts)) {
+        if (! array_key_exists($params['buy_cell_type'], self::$buyCellTypeArr)) {
+            return \Utils\Data::jsonReturn(YAF_LOGIC_DATA_ERROR,'操作类型参数错误','');
+        }
+
+        if (! array_key_exists($params['buy_cell_type'], self::$agriProducts)) {
             return \Utils\Data::jsonReturn(YAF_LOGIC_DATA_ERROR,'农贸品类参数错误','');
         }
 
@@ -69,9 +91,8 @@ class MarketModel
         try {
             MarketDao::getInstance()->addMarket($params);
             return \Utils\Data::jsonReturn();
-
         } catch (\PDOException $e) {
-            $content = '[INFO_DB]'.__FILE__.','.__LINE__.'=>'.json_encode($e->getMessage()).PHP_EOL;
+            $content = '[INFO_DB]'.__FILE__.','.__LINE__.'=>'.$e->getMessage().PHP_EOL;
             \Utils\Log::recordLog($content);
             return \Utils\Data::jsonReturn(YAF_LOGIC_DB_ERROR,'数据库开小差了~','');
         }
@@ -79,15 +100,28 @@ class MarketModel
     }
 
 
+    public static $strMaxLength = 6;
 
     public function listMarket()
     {
         try {
             $res = MarketDao::getInstance()->listMarket();
+            // 转化数据
+            foreach ($res as $key=>$value) {
+                $res[$key]['agri_product'] = self::$agriProducts[$value['agri_product']];
+                $res[$key]['unit_price'] = $value['unit_price']/self::$unitPriceTurn;
+                $res[$key]['num'] = $value['num']/self::$numTurn;
+                $res[$key]['created_at'] = CommonLogic::getInstance()->turnTimeForFront($value['created_at']);
+                $res[$key]['trade_area'] = CommonLogic::getInstance()->turnStrToElipsis($value['trade_area'], self::$strMaxLength);
+                $res[$key]['specification'] = CommonLogic::getInstance()->turnStrToElipsis($value['specification'], self::$strMaxLength);
+                $res[$key]['buy_cell_type'] = self::$buyCellTypeArr[$value['buy_cell_type']];
+
+            }
+
             return \Utils\Data::jsonReturn(YAF_HTTP_OK, 'success', $res);
 
         } catch (\PDOException $e) {
-            $content = '[INFO_DB]'.__FILE__.','.__LINE__.'=>'.json_encode($e->getMessage()).PHP_EOL;
+            $content = '[INFO_DB]'.__FILE__.','.__LINE__.'=>'.$e->getMessage().PHP_EOL;
             \Utils\Log::recordLog($content);
             return \Utils\Data::jsonReturn(YAF_LOGIC_DB_ERROR,'数据库开小差了~','');
         }
