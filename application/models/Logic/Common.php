@@ -16,7 +16,7 @@ class CommonModel
     }
 
     /*
-     * @comment 获取验证携带的字符名
+     * @comment 获取验证携带的字符名,此时定义的字符串就是 token
      */
     public function getStrCheck()
     {

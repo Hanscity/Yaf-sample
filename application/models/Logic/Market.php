@@ -4,7 +4,7 @@ namespace Logic;
 
 use \Dao\MarketModel as MarketDao;
 use Logic\CommonModel as CommonLogic;
-
+use Logic\UserModel as UserLogic;
 
 class MarketModel
 {
@@ -50,6 +50,9 @@ class MarketModel
     public function addMarket()
     {
         $params = \Utils\Data::getHttpPostJson();
+        $userinfo = UserLogic::getInstance()->checkUserInfoByTokenThenReturn($params[CommonLogic::getInstance()->getStrCheck()]);
+        $params['user_id'] = $userinfo['id'];
+
         \Utils\Log::recordLog($params);
 
         if (! (isset($params['agri_product']) && isset($params['brand']) && isset($params['trade_area'])
@@ -118,7 +121,7 @@ class MarketModel
                 $res[$key]['trade_area'] = CommonLogic::getInstance()->turnStrToElipsis($value['trade_area'], self::$strMaxLength);
                 $res[$key]['specification'] = CommonLogic::getInstance()->turnStrToElipsis($value['specification'], self::$strMaxLength);
                 $res[$key]['buy_cell_type'] = self::$buyCellTypeArr[$value['buy_cell_type']];
-
+                $res[$key]['user_info'] = UserLogic::getInstance()->getUserInfoByUserIdentification($value['user_id']);
             }
 
             return \Utils\Data::jsonReturn(YAF_HTTP_OK, 'success', $res);

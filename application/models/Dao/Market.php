@@ -37,11 +37,12 @@ class MarketModel
         $pdo = \Mysql\Pdo::getInstance();
         // 在写入数据库的时候，数据库中 buy_cell_type 需要是 int， 可是我传递的值是字符 '2',也可以成功。说明数据库有自动转化的功能
         $stmt = $pdo->prepare("INSERT INTO markets 
-                                    (agri_product, buy_cell_type, brand, unit_price, num, trade_area, specification, created_at, updated_at, show_status) 
-                                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                                    (agri_product, buy_cell_type, brand, unit_price, num, trade_area, specification, 
+                                     created_at, updated_at, show_status, user_id) 
+                                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
-        $stmt->execute([$data['agri_product'], $data['buy_cell_type'], $data['brand'], $data['unit_price'], $data['num'], $data['trade_area'],
-            $data['specification'], $data['created_at'], $data['updated_at'], $data['show_status']]);
+        $stmt->execute([ $data['agri_product'], $data['buy_cell_type'], $data['brand'], $data['unit_price'], $data['num'], $data['trade_area'],
+            $data['specification'], $data['created_at'], $data['updated_at'], $data['show_status'], $data['user_id'] ]);
         $row_count = $stmt->rowCount();
         return $row_count;
     }

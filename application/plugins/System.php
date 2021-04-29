@@ -8,7 +8,7 @@
 class SystemPlugin extends Yaf\Plugin_Abstract
 {
     protected static $routeWhiteList = [
-        'user/register', 'user/login'
+        'User/register', 'User/login'
     ];
 
     /**
@@ -31,10 +31,8 @@ class SystemPlugin extends Yaf\Plugin_Abstract
 	public function routerShutdown(Yaf\Request_Abstract $request, Yaf\Response_Abstract $response)
     {
 
-        \Utils\Log::recordLog($request->getControllerName());
-        \Utils\Log::recordLog($request->getActionName());
+
         if ( !in_array($request->getControllerName().'/'.$request->getActionName(), self::$routeWhiteList) ) {
-            \Utils\Log::recordLog('should check');
 
             $params = \Utils\Data::getHttpPostJson();
             $strToken = \Logic\CommonModel::getInstance()->getStrCheck();
@@ -45,10 +43,11 @@ class SystemPlugin extends Yaf\Plugin_Abstract
                 \Utils\Data::responceReturn($res);
             }
 
-            if ( !( \Logic\UserModel::getInstance()->checkUserInfoByToken($params[$strToken]) )) {
+            if ( !( \Logic\UserModel::getInstance()->checkUserInfoByTokenThenReturn($params[$strToken]) )) {
                 $res = \Utils\Data::jsonReturn(YAF_HTTP_UNAUTHORIZED, '用户没有访问权限,需要进行身份认证');
                 \Utils\Data::responceReturn($res);
             }
+
         }
 
 	}
