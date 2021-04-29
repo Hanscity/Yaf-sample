@@ -104,6 +104,9 @@ class MarketModel
 
     public function listMarket()
     {
+        $params = \Utils\Data::getHttpPostJson();
+        \Utils\Log::recordLog($params);
+
         try {
             $res = MarketDao::getInstance()->listMarket();
             // 转化数据

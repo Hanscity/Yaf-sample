@@ -43,6 +43,19 @@ class UserModel
         return json_decode($user_info,1);
     }
 
+    public function checkUserInfoByToken($token)
+    {
+        $userinfo = $this->getUserInfoByToken($token);
+        if ( !$userinfo ) {
+            return false;
+        }
+        if ( !( isset($userinfo['id']) && isset($userinfo['user_name'])
+            && isset($userinfo['phone_number']) ) ) {
+            return false;
+        }
+        return true;
+    }
+
 
     public function addUser($user_name, $phone_number, $password, $codeVerify)
     {

@@ -4,6 +4,8 @@ namespace Logic;
 
 class CommonModel
 {
+    protected static $strCheck = 'token'; // 验证携带的字符，取名为 token，担心以后修改了比如改成checkToken, 又得到处改。先放在这里用吧
+
     private static $instance = null;
     public static function getInstance()
     {
@@ -12,6 +14,15 @@ class CommonModel
         }
         return self::$instance;
     }
+
+    /*
+     * @comment 获取验证携带的字符名
+     */
+    public function getStrCheck()
+    {
+        return self::$strCheck;
+    }
+
 
     /**
      * @param $date

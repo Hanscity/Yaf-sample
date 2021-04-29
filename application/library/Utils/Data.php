@@ -24,6 +24,7 @@ class Data
     public static function responceReturn(string $data)
     {
         echo $data;
+        exit();
     }
 
     /*

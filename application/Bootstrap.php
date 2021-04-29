@@ -108,6 +108,7 @@ class Bootstrap extends Yaf\Bootstrap_Abstract {
          * */
         //定义业务 code 常量
         define('YAF_HTTP_OK', 200); ## http 请求成功
+        define('YAF_HTTP_UNAUTHORIZED', 401); ## http 请求成功,但是用户没有访问权限,需要进行身份认证
         define('YAF_LOGIC_EXISTS', 530); ## 已存在，例如该注册的号码已存在
         define('YAF_LOGIC_NOT_EXISTS', 531); ## 不存在，例如用户的手机号码不存在
         define('YAF_LOGIC_REQUIRE', 532); ## 缺少参数，例如用户的手机号码没有传递
@@ -118,8 +119,8 @@ class Bootstrap extends Yaf\Bootstrap_Abstract {
 
 	public function _initPlugin(Yaf\Dispatcher $dispatcher) {
 		//注册一个插件
-		$objSamplePlugin = new SamplePlugin();
-		$dispatcher->registerPlugin($objSamplePlugin);
+		$objSystemPlugin = new SystemPlugin();
+		$dispatcher->registerPlugin($objSystemPlugin);
 	}
 
 	public function _initRoute(Yaf\Dispatcher $dispatcher) {
