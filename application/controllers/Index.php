@@ -11,7 +11,7 @@ class IndexController extends Yaf\Controller_Abstract {
      * 如果这个方法被定义，那么在Controller被构造以后，Yaf会调用这个方法
      */
     public function init() {
-		$this->getView()->assign("header", "Yaf Example");
+//		$this->getView()->assign("header", "Yaf Example");
 	}
 
 	/** 
@@ -19,42 +19,10 @@ class IndexController extends Yaf\Controller_Abstract {
      * Yaf支持直接把Yaf_Request_Abstract::getParam()得到的同名参数作为Action的形参
      * 对于如下的例子, 当访问http://yourhost/yaf_skeleton/index/index/index/name/danche 的时候, 你就会发现不同
      */
-	public function indexAction($name = "Stranger indexModule") {
-
-	    // 全局库的加载
-//	    echo \Host::getHost();
-	    // 全局库的加载不支持命名空间，子目录等
-	    //echo \Test\Test::getTest();
-
-        //项目库的加载
-//        echo Tool\Http::getHost();
-//        echo Test\Http::getHost();
-
-        // get the file
-//        \yaf\Loader::import('/home/danche/www/Tool/Http.php');
-
-        /*$iniConfig = \yaf\application::app()->getConfig();
-        echo "<pre>";
-        var_export($iniConfig);
-        echo "<pre>";*/
-
-		//1. fetch query
-//		$get = $this->getRequest()->getQuery("get", "default value");
-
-		//2. fetch model
-//		$model = new SampleModel();
-//
-//		$modelDao = new Dao\SampleModel();
-//		$info = $modelDao->selectSample();
-//
-//		var_dump($info);
-
-		//3. assign
-//		$this->getView()->assign("content", $model->selectSample());
-//		$this->getView()->assign("name", $name);
-//        echo $this->getView()->render('index/index.phtml');
-		//4. render by Yaf, 如果这里返回FALSE, Yaf将不会调用自动视图引擎Render模板
-//        return FALSE;
+	public function indexAction($name = "Stranger indexModule")
+    {
+        // 开启模板
+        Yaf\Dispatcher::getInstance()->autoRender(true);
 	}
 
 
@@ -171,7 +139,43 @@ class IndexController extends Yaf\Controller_Abstract {
     }
 
 
+    public function test()
+    {
+        // 全局库的加载
+//	    echo \Host::getHost();
+        // 全局库的加载不支持命名空间，子目录等
+        //echo \Test\Test::getTest();
 
+        //项目库的加载
+//        echo Tool\Http::getHost();
+//        echo Test\Http::getHost();
+
+        // get the file
+//        \yaf\Loader::import('/home/danche/www/Tool/Http.php');
+
+        /*$iniConfig = \yaf\application::app()->getConfig();
+        echo "<pre>";
+        var_export($iniConfig);
+        echo "<pre>";*/
+
+        //1. fetch query
+//		$get = $this->getRequest()->getQuery("get", "default value");
+
+        //2. fetch model
+//		$model = new SampleModel();
+//
+//		$modelDao = new Dao\SampleModel();
+//		$info = $modelDao->selectSample();
+//
+//		var_dump($info);
+
+        //3. assign
+//		$this->getView()->assign("content", $model->selectSample());
+//		$this->getView()->assign("name", $name);
+//        echo $this->getView()->render('index/index.phtml');
+        //4. render by Yaf, 如果这里返回FALSE, Yaf将不会调用自动视图引擎Render模板
+//        return FALSE;
+    }
 
 
 

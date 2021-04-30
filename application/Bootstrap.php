@@ -126,9 +126,18 @@ class Bootstrap extends Yaf\Bootstrap_Abstract {
 	public function _initRoute(Yaf\Dispatcher $dispatcher) {
 		//在这里注册自己的路由协议，默认使用Yaf_Route_Static
 	}
-	
-	public function _initView(Yaf\Dispatcher $dispatcher) {
+
+    /**
+     * @param \Yaf\Dispatcher $dispatcher
+     * @comment 将对象以参数的形式传递，这不就是依赖注入么
+     * 
+     */
+	public function _initView(Yaf\Dispatcher $dispatcher)
+    {
 		//在这里注册自己的view控制器，例如smarty,firekylin
-        $dispatcher->getInstance()->disableView();
+
+        // 关闭模板
+        Yaf\Dispatcher::getInstance()->autoRender(false);
+
 	}
 }

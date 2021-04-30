@@ -8,7 +8,9 @@
 class SystemPlugin extends Yaf\Plugin_Abstract
 {
     protected static $routeWhiteList = [
-        'User/register', 'User/login'
+        'Index/index', ## 首页，为了备案而准备的
+        'User/register',
+        'User/login',
     ];
 
     /**
