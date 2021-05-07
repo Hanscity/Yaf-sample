@@ -19,7 +19,7 @@ class MarketModel
     {
         $pdo = \Mysql\Pdo::getInstance();
         $stmt = $pdo->prepare("SELECT *  
-                                        FROM markets WHERE show_status = 1 order by created_at Desc limit 10");
+                                        FROM markets WHERE show_status = 1 order by created_at Desc limit 20");
         $stmt->execute();
         $res = $stmt->fetchAll(); ## 默认是二位数组 [['argi_product'=>1,'brand'=>'wanxian'...],['argi_product'=>1,'brand'=>'huanghuazhan'...]]
                                   ## 很显然，这种数据结构转化为 json 的时候将会变成 [{},{}], 非常合适
