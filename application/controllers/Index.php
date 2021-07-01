@@ -25,6 +25,11 @@ class IndexController extends Yaf\Controller_Abstract {
         Yaf\Dispatcher::getInstance()->autoRender(true);
 	}
 
+    public function analyseAction($name = "Stranger indexModule")
+    {
+        // 开启模板
+        Yaf\Dispatcher::getInstance()->autoRender(true);
+    }
 
 
 	public function test_requestAction()
